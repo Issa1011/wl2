@@ -18,11 +18,11 @@ public class WishRepo {
 
     private RowMapper<WishlistModel> wishlistRowMapper= (rs, rowNum) -> {
         return new WishlistModel(
-                rs.getInt("id"),
-                rs.getString("wishName"),
-                rs.getString("descriptions"),
-                rs.getDouble("prices"),
-                rs.getString("link")
+            rs.getInt("id"),
+            rs.getString("wishName"),
+            rs.getString("descriptions"),
+            rs.getDouble("prices"),
+            rs.getString("link")
         );
     };
 

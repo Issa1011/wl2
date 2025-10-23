@@ -42,7 +42,7 @@ public class WishController {
     }
 
     @PostMapping("/update")
-    public String saveUpdate(@ModelAttribute, WishlistModel model){
+    public String saveUpdate(@ModelAttribute WishlistModel model){
         service.updateWish(model.getid(),model);
         return "redirect:/wishes";
     }
@@ -53,5 +53,4 @@ public class WishController {
         return "redirect:/wishes";
     }
 }
-
 
