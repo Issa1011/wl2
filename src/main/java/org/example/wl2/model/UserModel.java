@@ -1,19 +1,19 @@
 package org.example.wl2.model;
 
-public class userModel {
+public class UserModel {
     private int id;
     private String user;
     private String email;
     private String password;
 
-    public userModel(int id, String user, String email, String password){
+    public UserModel(int id, String user, String email, String password){
         this.id = id;
         this.user = user;
         this.email = email;
         this.password = password;
     }
 
-    public userModel(){
+    public UserModel(){
 
     }
 
