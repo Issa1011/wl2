@@ -19,10 +19,10 @@ public class UserService {
         repository.save(user);
     }
 
-    public boolean login(String username, String passwords){
+    public boolean login(String username, String password){
         try{
             UserModel user = repository.findByUserName(username);
-            return user.getPassword().equals(passwords);
+            return user.getPassword().equals(password);
         } catch (Exception e) {
             return false;
         }

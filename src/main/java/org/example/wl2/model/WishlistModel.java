@@ -59,7 +59,9 @@ public class WishlistModel {
         this.link = link;
     }
 
-    public String toString(){
+   /* public String toString(){
         return "name, " + name + " descriptions: " + description + " price: " + price + " Link = " + link;
     }
+
+    */
 }

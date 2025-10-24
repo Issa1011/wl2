@@ -15,22 +15,18 @@ public class UserController {
     }
 
    @PostMapping("/register")
-    public String register (@RequestBody UserModel user){
-        try {
+    public String register (@ModelAttribute UserModel user){
             service.registerUser(user);
-            return "User registered";
-        } catch (IllegalArgumentException e){
-            return e.getMessage();
-       }
+            return "redirect:/login";
    }
 
    @PostMapping("/login")
-    public String login(@RequestParam String username, @RequestParam String passwords){
-        boolean sucess = service.login(username,passwords);
-        if (sucess){
-            return "Login succesful";
+    public String login(@RequestParam String username, @RequestParam String password){
+        boolean success = service.login(username,password);
+        if (success){
+            return "redirect:/";
         } else {
-            return "Invalid username or password";
+            return "redirect:/login";
         }
    }
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Register</title>
@@ -7,15 +7,15 @@
 <body>
 <h2>Opret en ny bruger</h2>
 
-<form action="/api/users/register" method="post">
+<form action="/users/register" method="post">
     <label>Brugernavn:</label><br>
-    <input type="text" name="user" required><br><br>
+    <input type="text" name="username" required><br><br>
 
     <label>Email:</label><br>
     <input type="email" name="email" required><br><br>
 
     <label>Password:</label><br>
-    <input type="password" name="password" required><br><br>
+    <input type="password" name="passwords" required><br><br>
 
     <button type="submit">Opret bruger</button>
 
