@@ -1,5 +1,6 @@
 package org.example.wl2.controller;
 
+import jakarta.servlet.http.HttpSession;
 import org.example.wl2.model.WishlistModel;
 import org.example.wl2.service.WishService;
 import org.springframework.stereotype.Controller;
@@ -18,32 +19,41 @@ public class WishController {
     }
 
     @GetMapping("/wishes")
-    public String getWish(Model model) {
-        model.addAttribute("wish", service.getAll());
+    public String showWishes(HttpSession session, Model model) {
+        Integer userId = (Integer) session.getAttribute("userId");
+        if (userId == null) return "redirect:/login";
+        model.addAttribute("wishes", service.getAllWishesByUSer(userId));
+        model.addAttribute("wish", new WishlistModel());
         return "wishList";
     }
 
     @GetMapping("/add")
     public String addWish(Model model) {
         model.addAttribute("wish", new WishlistModel());
-        return "addedWish";
+        return "wishes";
     }
 
     @PostMapping("/add")
-    public String saveWish(WishlistModel model){
-        service.addWish(model);
+    public String addWish(HttpSession session, @ModelAttribute WishlistModel wish) {
+        Integer userId = (Integer) session.getAttribute("userId");
+        if (userId == null) return "redirect:/login";
+
+        wish.setUserId(userId);
+        service.addWish(wish);
         return "redirect:/wishes";
     }
 
-    @GetMapping("/wishes/{id}/update")
+   /* @GetMapping("/wishes/{id}/update")
     public String updateWish(@PathVariable int id, Model model){
         model.addAttribute("wish", service.getById(id));
         return "update";
     }
 
+    */
+
     @PostMapping("/update")
     public String saveUpdate(@ModelAttribute WishlistModel model){
-        service.updateWish(model.getid(),model);
+        service.updateWish(model.getId(),model);
         return "redirect:/wishes";
     }
 

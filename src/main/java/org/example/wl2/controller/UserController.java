@@ -2,8 +2,10 @@ package org.example.wl2.controller;
 
 import org.example.wl2.model.UserModel;
 import org.example.wl2.service.UserService;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class UserController {
@@ -21,12 +23,14 @@ public class UserController {
    }
 
    @PostMapping("/login")
-    public String login(@RequestParam String username, @RequestParam String password){
+    public String login (@RequestParam String username, @RequestParam String password, HttpSession session){
         boolean success = service.login(username,password);
         if (success){
-            return "redirect:/";
+            var user = service.getUsername(username);
+            session.setAttribute("userId",user.getId());
+            return "redirect:/wishes";
         } else {
-            return "redirect:/login";
+            return "redirect:/login?error=true";
         }
    }
 

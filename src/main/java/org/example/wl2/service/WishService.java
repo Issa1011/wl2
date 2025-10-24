@@ -16,13 +16,15 @@ public class WishService {
     public List<WishlistModel> getAll(){
         return repository.findAll();
     }
-
+/*
     public WishlistModel getById(int id){
-        return repository.findById(id);
+        return repository.findAll(id);
     }
 
+ */
+
     public void addWish(WishlistModel model){
-        repository.add(model);
+        repository.save(model);
     }
 
     public void updateWish(int id, WishlistModel updated){
@@ -31,5 +33,9 @@ public class WishService {
 
     public void delete(int id){
         repository.delete(id);
+    }
+
+    public List<WishlistModel> getAllWishesByUSer(int userId) {
+        return repository.findALlByUserId(userId);
     }
 }
