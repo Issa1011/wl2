@@ -1,7 +1,7 @@
 package org.example.wl2;
 
 import org.example.wl2.controller.WishController;
-import org.example.wl2.model.WishlistModel;
+import org.example.wl2.model.Wish;
 import org.example.wl2.service.WishService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,16 +33,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
     @Test
     void testGetWishes() throws Exception {
-        List<WishlistModel> wishlistModels = Arrays.asList(
-                new WishlistModel( "taske", "meget fin", 1500, "https://google.com")
+        List<Wish> wishes = Arrays.asList(
+                new Wish( "taske", "meget fin", 1500, "https://google.com")
         );
-        when(service.getAll()).thenReturn(wishlistModels);
+        when(service.getAll()).thenReturn(wishes);
 
         mockMvc.perform(get("/wishes"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("wishList"))
                 .andExpect(model().attributeExists("wish"))
-                .andExpect(model().attribute("wish", wishlistModels));
+                .andExpect(model().attribute("wish", wishes));
 
         verify(service, times(1)).getAll();
     }

@@ -1,6 +1,6 @@
 package org.example.wl2.service;
 
-import org.example.wl2.model.WishlistModel;
+import org.example.wl2.model.Wish;
 import org.example.wl2.repository.WishRepo;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ public class WishService {
         this.repository = repository;
     }
 
-    public List<WishlistModel> getAll(){
+    public List<Wish> getAll(){
         return repository.findAll();
     }
 /*
@@ -23,11 +23,11 @@ public class WishService {
 
  */
 
-    public void addWish(WishlistModel model){
+    public void addWish(Wish model){
         repository.save(model);
     }
 
-    public void updateWish(int id, WishlistModel updated){
+    public void updateWish(int id, Wish updated){
         repository.update(id, updated);
     }
 
@@ -35,7 +35,7 @@ public class WishService {
         repository.delete(id);
     }
 
-    public List<WishlistModel> getAllWishesByUSer(int userId) {
+    public List<Wish> getAllWishesByUSer(int userId) {
         return repository.findALlByUserId(userId);
     }
 }

@@ -1,6 +1,6 @@
 package org.example.wl2;
 
-import org.example.wl2.model.WishlistModel;
+import org.example.wl2.model.Wish;
 import org.example.wl2.repository.WishRepo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ class WishListRepoTest {
 
     @Test
     void testfindAll() {
-        List<WishlistModel> wishes = repo.findAll();
+        List<Wish> wishes = repo.findAll();
         assertThat(wishes).isNotEmpty();
     }
 }

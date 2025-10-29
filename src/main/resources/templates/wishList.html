@@ -19,6 +19,7 @@
 </head>
 <body>
 <h1> Min Ønskeliste</h1>
+<p th:text="'hej, ' + ${username} +  '! Velkommen til din ønskeliste. '"></p>
 
 <section>
     <h2>Tilføj nyt ønske</h2>
@@ -94,7 +95,10 @@
 </section>
 
 <hr>
-<p><a href="/">Tilbage til forsiden</a> | <a href="/logout" th:if="${session.userId != null}">Log ud</a></p>
+<p>
+    <a th:href="@{/}">Tilbage til forsiden</a> |
+    <a href="/logout" th:if="${session.userId != null}">Log ud</a>
+</p>
 
 </body>
 </html>

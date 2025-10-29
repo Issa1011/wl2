@@ -1,6 +1,6 @@
 package org.example.wl2.repository;
 
-import org.example.wl2.model.WishlistModel;
+import org.example.wl2.model.Wish;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -15,8 +15,19 @@ public class WishRepo {
     public WishRepo(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
+    private RowMapper<Wish> wishRowMapper = (rs, rowNum) -> {
+        Wish w = new Wish();
+        rs.getInt("id");
+        rs.getInt("user_id");
+        rs.getString("wishName");
+        rs.getString("descriptions");
+        rs.getDouble("prices");
+        rs.getString("link");
 
-    public int save(WishlistModel wish) {
+        return w;
+    };
+
+    public int save(Wish wish) {
         String sql = "insert into wish (user_id, wishName, descriptions, prices, link) values (?,?,?,?,?)";
         return jdbcTemplate.update(sql,
                 wish.getUserId(),
@@ -28,10 +39,10 @@ public class WishRepo {
     }
 
 
-    public List<WishlistModel> findALlByUserId(int userId) {
+    public List<Wish> findALlByUserId(int userId) {
         String sql = "select * from Wish where user_id = ?";
-        RowMapper<WishlistModel> rowMapper = (rs, rowNum) -> {
-            WishlistModel w = new WishlistModel();
+        RowMapper<Wish> rowMapper = (rs, rowNum) -> {
+            Wish w = new Wish();
             w.setId(rs.getInt("id"));
             w.setUserId(rs.getInt("user_id"));
             w.setName(rs.getString("wishName"));
@@ -44,26 +55,13 @@ public class WishRepo {
     }
 
 
-    private RowMapper<WishlistModel> wishlistRowMapper = (rs, rowNum) -> {
-        WishlistModel w = new WishlistModel();
-        rs.getInt("id");
-        rs.getInt("user_id");
-        rs.getString("wishName");
-        rs.getString("descriptions");
-        rs.getDouble("prices");
-        rs.getString("link");
-
-        return w;
-    };
-
-
-    public List<WishlistModel> findAll() {
+    public List<Wish> findAll() {
         String sql = "select * from Wish";
-        return jdbcTemplate.query(sql, wishlistRowMapper);
+        return jdbcTemplate.query(sql, wishRowMapper);
     }
 
 
-    public int update(int id, WishlistModel updated) {
+    public int update(int id, Wish updated) {
         String sql = "update wish set wishName=?, descriptions=?, prices=?, link=? where id=?";
         return jdbcTemplate.update(sql,
                 updated.getName(),

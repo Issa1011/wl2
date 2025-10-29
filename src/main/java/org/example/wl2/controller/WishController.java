@@ -1,7 +1,9 @@
 package org.example.wl2.controller;
 
 import jakarta.servlet.http.HttpSession;
-import org.example.wl2.model.WishlistModel;
+import org.example.wl2.model.User;
+import org.example.wl2.model.Wish;
+import org.example.wl2.service.UserService;
 import org.example.wl2.service.WishService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,9 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class WishController {
     private final WishService service;
+    private final UserService userService;
 
-    public WishController(WishService service) {
+    public WishController(WishService service, UserService userService) {
         this.service = service;
+        this.userService = userService;
     }
 
     @GetMapping("/wishes")
@@ -23,18 +27,20 @@ public class WishController {
         Integer userId = (Integer) session.getAttribute("userId");
         if (userId == null) return "redirect:/login";
         model.addAttribute("wishes", service.getAllWishesByUSer(userId));
-        model.addAttribute("wish", new WishlistModel());
+        model.addAttribute("wish", new Wish());
+        User user = userService.getById(userId);
+        model.addAttribute("username", user.getUser());
         return "wishList";
     }
 
     @GetMapping("/add")
     public String addWish(Model model) {
-        model.addAttribute("wish", new WishlistModel());
+        model.addAttribute("wish", new Wish());
         return "wishes";
     }
 
     @PostMapping("/add")
-    public String addWish(HttpSession session, @ModelAttribute WishlistModel wish) {
+    public String addWish(HttpSession session, @ModelAttribute Wish wish) {
         Integer userId = (Integer) session.getAttribute("userId");
         if (userId == null) return "redirect:/login";
 
@@ -52,7 +58,7 @@ public class WishController {
     */
 
     @PostMapping("/update")
-    public String saveUpdate(@ModelAttribute WishlistModel model){
+    public String saveUpdate(@ModelAttribute Wish model){
         service.updateWish(model.getId(),model);
         return "redirect:/wishes";
     }

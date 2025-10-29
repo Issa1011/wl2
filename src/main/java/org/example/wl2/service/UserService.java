@@ -1,6 +1,6 @@
 package org.example.wl2.service;
 
-import org.example.wl2.model.UserModel;
+import org.example.wl2.model.User;
 import org.example.wl2.repository.UserRepo;
 import org.springframework.stereotype.Service;
 
@@ -12,39 +12,38 @@ public class UserService {
         this.repository = repository;
     }
 
-    public void registerUser(UserModel user){
+    // oprette en ny bruger
+    public User registerUser(User user){
         if(repository.avaliableUserName(user.getUser())){
-            throw new IllegalArgumentException("Username already exists");
+            throw new IllegalArgumentException("Brugernavnet findes allerede!");
         }
-        repository.save(user);
+        if (repository.avaliableEmail(user.getEmail())) {
+            throw new IllegalArgumentException("Emailen er allerede i brug!");
+        }
+        return repository.save(user);
     }
 
+    // checker brugernavn og kode er korrekt
     public boolean login(String username, String password){
-        try{
-            UserModel user = repository.findByUserName(username);
+            User user = repository.findByUserName(username);
+            if (user == null) return false;
             return user.getPassword().equals(password);
-        } catch (Exception e) {
-            return false;
-        }
-
     }
 
-    public UserModel getUsername(String user){
+    // find bruger gennem navn
+    public User getUsername(String user){
         return repository.findByUserName(user);
 
     }
 
-    public UserModel getEmail(String email){
+    // find bruger gennem deres email
+    public User getEmail(String email){
         return repository.findByEmail(email);
     }
 
-    public boolean confirmUser(String username){
-        return repository.avaliableUserName(username);
+    //find bruger med deres Id
+    public User getById(int id) {
+        return repository.findById(id);
     }
-
-    public void saveUser(UserModel model){
-       repository.save(model);
-    }
-
 }
                 

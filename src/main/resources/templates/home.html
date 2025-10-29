@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="da">
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Homepage</title>
@@ -8,8 +8,8 @@
 <body>
 <h2>Velkommen til ønskelisten</h2>
 
-    <a href="login.html">Log ind</a>
-    <a href="register.html">Register</a>
+    <a th:href="@{/login}">Log ind</a>
+    <a th:href="@{/register}">Register</a>
 
 </body>
 </html>

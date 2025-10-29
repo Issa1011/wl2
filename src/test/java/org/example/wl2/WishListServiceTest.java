@@ -1,6 +1,6 @@
 package org.example.wl2;
 
-import org.example.wl2.model.WishlistModel;
+import org.example.wl2.model.Wish;
 import org.example.wl2.repository.WishRepo;
 import org.example.wl2.service.WishService;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,13 +26,13 @@ public class WishListServiceTest {
 
     @Test
     void TestGetAll() {
-        List<WishlistModel> models = Arrays.asList(
-                new WishlistModel("Stol", "brun læder", 750, "https://barns&nobles.com")
+        List<Wish> models = Arrays.asList(
+                new Wish("Stol", "brun læder", 750, "https://barns&nobles.com")
         );
 
         when(repo.findAll()).thenReturn(models);
 
-        List<WishlistModel> result = service.getAll();
+        List<Wish> result = service.getAll();
 
         assertEquals(1, result.size());
         assertEquals("Stol", result.get(0).getName());
