@@ -16,14 +16,14 @@ public class UserRepo {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    private RowMapper<User> userRowMapper = (rs, rowNum) -> {
-        return new User(
+    private RowMapper<User> userRowMapper = (rs, rowNum) ->
+         new User(
                 rs.getInt("id"),
                 rs.getString("username"),
                 rs.getString("email"),
                 rs.getString("passwords")
         );
-    };
+
 
     public User findByUserName(String user){
         String sql = "select * from users where username = ?";

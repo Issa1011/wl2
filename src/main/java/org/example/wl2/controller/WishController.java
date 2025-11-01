@@ -27,7 +27,7 @@ public class WishController {
         Integer userId = (Integer) session.getAttribute("userId");
         if (userId == null) return "redirect:/login";
         model.addAttribute("wishes", service.getAllWishesByUSer(userId));
-        model.addAttribute("wish", new Wish());
+        model.addAttribute("new_wish", new Wish());
         User user = userService.getById(userId);
         model.addAttribute("username", user.getUser());
         return "wishList";
@@ -49,13 +49,11 @@ public class WishController {
         return "redirect:/wishes";
     }
 
-   /* @GetMapping("/wishes/{id}/update")
+   @GetMapping("/wishes/{id}/update")
     public String updateWish(@PathVariable int id, Model model){
         model.addAttribute("wish", service.getById(id));
         return "update";
     }
-
-    */
 
     @PostMapping("/update")
     public String saveUpdate(@ModelAttribute Wish model){

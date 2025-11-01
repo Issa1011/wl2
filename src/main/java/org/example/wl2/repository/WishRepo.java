@@ -15,17 +15,16 @@ public class WishRepo {
     public WishRepo(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-    private RowMapper<Wish> wishRowMapper = (rs, rowNum) -> {
-        Wish w = new Wish();
-        rs.getInt("id");
-        rs.getInt("user_id");
-        rs.getString("wishName");
-        rs.getString("descriptions");
-        rs.getDouble("prices");
-        rs.getString("link");
+    private RowMapper<Wish> wishRowMapper = (rs, rowNum) ->
+            new Wish (
+        rs.getInt("id"),
+        rs.getInt("user_id"),
+        rs.getString("wishName"),
+        rs.getString("descriptions"),
+        rs.getDouble("prices"),
+        rs.getString("link")
+        );
 
-        return w;
-    };
 
     public int save(Wish wish) {
         String sql = "insert into wish (user_id, wishName, descriptions, prices, link) values (?,?,?,?,?)";
@@ -52,6 +51,11 @@ public class WishRepo {
             return w;
         };
         return jdbcTemplate.query(sql, rowMapper, userId);
+    }
+
+    public Wish findWishById(int id) {
+        String sql = "select * from wish where id = ?";
+        return jdbcTemplate.queryForObject(sql, wishRowMapper, id);
     }
 
 

@@ -24,7 +24,7 @@
 <section>
     <h2>Tilføj nyt ønske</h2>
 
-    <form th:action="@{/add}" th:object="${wish}" method="post">
+    <form th:action="@{/add}" th:object="${new_wish}" method="post">
         <label>Navn på ønske:</label><br>
         <input type="text" th:field="*{name}" placeholder="F.eks. Airpods Pro, gen2" required><br><br>
 
@@ -44,11 +44,11 @@
 <hr>
 <section>
     <h2>Dine ønsker</h2>
-    <div th:if="${#lists.isEmpty(wishes)}">
+    <div th:if="${wishes.isEmpty()}">
         <p> Du har endnu ikke tilføjet nogle ønsker. Tilføj et ønske ovenfor.</p>
     </div>
 
-    <div th:each="wish: ${wish.id}">
+    <div th:each="wish: ${wishes}">
         <div class="wish">
             <div class="meta small">
                 <span>ID: <span th:text="${wish.id}">1</span></span>
@@ -97,11 +97,8 @@
 <hr>
 <p>
     <a th:href="@{/}">Tilbage til forsiden</a> |
-    <a href="/logout" th:if="${session.userId != null}">Log ud</a>
+    <a href="/logout" >Log ud</a>
 </p>
-
-</body>
-</html>
 
 </body>
 </html>

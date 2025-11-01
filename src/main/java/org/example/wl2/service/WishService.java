@@ -1,5 +1,6 @@
 package org.example.wl2.service;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.example.wl2.model.Wish;
 import org.example.wl2.repository.WishRepo;
 import org.springframework.stereotype.Service;
@@ -16,12 +17,11 @@ public class WishService {
     public List<Wish> getAll(){
         return repository.findAll();
     }
-/*
-    public WishlistModel getById(int id){
-        return repository.findAll(id);
+
+    public Wish getById(int id){
+        return repository.findWishById(id);
     }
 
- */
 
     public void addWish(Wish model){
         repository.save(model);

@@ -32,7 +32,8 @@ public class UserService {
 
     // find bruger gennem navn
     public User getUsername(String user){
-        return repository.findByUserName(user);
+        User user1 = repository.findByUserName(user);
+        return user1;
 
     }
 
